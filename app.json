@@ -33,6 +33,17 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "0e5e50aa-020d-452f-aeb4-5a79417d9af0"
+      }
+    },
+    "owner": "alekku1"
   }
 }
