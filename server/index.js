@@ -142,6 +142,51 @@ app.get('/api/stats', async (_req, res) => {
 });
 
 // ------------------------------------------------------------
+// Ventas (solo lectura, con datos del producto y del comprador)
+// ------------------------------------------------------------
+const SELECT_VENTA = `
+  SELECT
+    v.id,
+    v.cantidad,
+    v.total,
+    v.fecha,
+    v.producto_id,
+    v.usuario_id,
+    p.nombre      AS producto,
+    p.precio      AS precio_actual,
+    p.categoria,
+    p.tienda_id,
+    t.nombre      AS tienda,
+    u.nombre      AS usuario,
+    u.email       AS usuario_email
+  FROM ventas v
+  LEFT JOIN productos p ON p.id = v.producto_id
+  LEFT JOIN tiendas   t ON t.id = p.tienda_id
+  LEFT JOIN usuarios  u ON u.id = v.usuario_id
+`;
+
+app.get('/api/ventas', async (_req, res) => {
+  try {
+    const { rows } = await pool.query(`${SELECT_VENTA} ORDER BY v.fecha DESC, v.id DESC`);
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al listar las ventas' });
+  }
+});
+
+app.get('/api/ventas/:id', async (req, res) => {
+  try {
+    const { rows } = await pool.query(`${SELECT_VENTA} WHERE v.id = $1`, [req.params.id]);
+    if (rows.length === 0) return res.status(404).json({ error: 'Venta no encontrada' });
+    res.json(rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al obtener la venta' });
+  }
+});
+
+// ------------------------------------------------------------
 // CRUD genérico por recurso
 // ------------------------------------------------------------
 for (const [ruta, meta] of Object.entries(recursos)) {

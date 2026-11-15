@@ -88,4 +88,19 @@ export const recursos = {
         .filter(Boolean)
         .join(' · '),
   },
+
+  ventas: {
+    ruta: 'ventas',
+    titulo: 'Ventas',
+    singular: 'Venta',
+    color: '#D97706',
+    soloLectura: true,
+    descripcion: 'Consulta el detalle de cada venta realizada',
+    campos: [],
+    tituloItem: (it) => it.producto ?? `Venta #${it.id}`,
+    subtituloItem: (it) =>
+      [it.usuario, it.fecha ? new Date(it.fecha).toLocaleDateString('es-MX') : null]
+        .filter(Boolean)
+        .join(' · '),
+  },
 };

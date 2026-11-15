@@ -40,7 +40,8 @@ export default function Menu() {
           <View style={styles.itemInfo}>
             <Text style={styles.itemTitulo}>{config.titulo}</Text>
             <Text style={styles.itemSub}>
-              Ver {config.titulo.toLowerCase()} registradas · gestionar CRUD
+              {config.descripcion ??
+                `Ver ${config.titulo.toLowerCase()} registradas · gestionar CRUD`}
             </Text>
           </View>
           <Text style={styles.flecha}>{'>'}</Text>

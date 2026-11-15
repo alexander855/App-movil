@@ -1,26 +1,7 @@
-import Constants from 'expo-constants';
-
-/**
- * Resuelve la IP de la máquina de desarrollo para poder llamar al backend
- * desde un dispositivo físico, emulador o web sin configuración manual.
- * En desarrollo Expo expone `hostUri` (ej: "192.168.1.10:8081").
- */
-function resolverHost() {
-  const hostUri =
-    Constants.expoConfig?.hostUri ||
-    Constants.expoGoConfig?.debuggerHost ||
-    '';
-
-  if (hostUri) {
-    return hostUri.split(':')[0];
-  }
-  return 'localhost';
-}
-
 const configurada = process.env.EXPO_PUBLIC_API_URL;
 
 export const API_URL = (
-  configurada || `http://${resolverHost()}:4000/api`
+  configurada || 'https://mercado-libre-api.onrender.com/api'
 ).replace(/\/+$/, '');
 
 let authToken = null;
