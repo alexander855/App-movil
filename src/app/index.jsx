@@ -72,10 +72,19 @@ export default function Home() {
         <>
           <View style={styles.grid}>
             {TARJETAS.map((t) => (
-              <View key={t.clave} style={[styles.tarjeta, { borderTopColor: t.color }]}>
+              <Pressable
+                key={t.clave}
+                onPress={() => router.push(`/${t.clave}`)}
+                style={({ pressed }) => [
+                  styles.tarjeta,
+                  { borderTopColor: t.color },
+                  pressed && styles.presionado,
+                ]}
+              >
                 <Text style={[styles.numero, { color: t.color }]}>{stats?.[t.clave] ?? 0}</Text>
                 <Text style={styles.tarjetaTitulo}>{t.titulo}</Text>
-              </View>
+                <Text style={[styles.tarjetaEnlace, { color: t.color }]}>Ver detalle ›</Text>
+              </Pressable>
             ))}
           </View>
 
@@ -120,6 +129,7 @@ const styles = StyleSheet.create({
   },
   numero: { fontSize: 32, fontWeight: '800' },
   tarjetaTitulo: { color: colors.muted, marginTop: 4, fontWeight: '600' },
+  tarjetaEnlace: { marginTop: 8, fontSize: 12, fontWeight: '700' },
   ingresos: {
     marginTop: spacing.md,
     backgroundColor: colors.primary,
