@@ -2,6 +2,8 @@
  * Definición declarativa de cada módulo administrable.
  * Tanto las listas como los formularios se generan a partir de esta config.
  */
+import { formatearMoneda } from './formato';
+
 export const recursos = {
   tiendas: {
     ruta: 'tiendas',
@@ -84,7 +86,7 @@ export const recursos = {
     ],
     tituloItem: (it) => it.nombre,
     subtituloItem: (it) =>
-      [it.categoria, it.precio != null ? `$${Number(it.precio).toFixed(2)}` : null]
+      [it.categoria, it.precio != null ? formatearMoneda(it.precio) : null]
         .filter(Boolean)
         .join(' · '),
   },

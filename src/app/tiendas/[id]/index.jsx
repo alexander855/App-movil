@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Stack, router, useLocalSearchParams, useFocusEffect } from 'expo-router';
 import { api } from '../../../lib/api';
+import { formatearMoneda } from '../../../lib/formato';
 import { colors, spacing, radius } from '../../../theme';
 
 function Fila({ etiqueta, valor }) {
@@ -126,7 +127,7 @@ export default function DetalleTienda() {
               <Text style={styles.nombreProducto} numberOfLines={1}>
                 {p.nombre}
               </Text>
-              <Text style={styles.precio}>${Number(p.precio).toFixed(2)}</Text>
+              <Text style={styles.precio}>{formatearMoneda(p.precio)}</Text>
             </View>
             {p.descripcion ? (
               <Text style={styles.descripcion} numberOfLines={2}>

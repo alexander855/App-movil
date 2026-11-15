@@ -14,7 +14,11 @@ const MESES = [
 ];
 
 export function formatearMoneda(valor) {
-  return `$${Number(valor ?? 0).toFixed(2)}`;
+  const numero = Number(valor ?? 0);
+  const seguro = Number.isFinite(numero) ? numero : 0;
+  const [entero, decimales] = Math.abs(seguro).toFixed(2).split('.');
+  const agrupado = entero.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return `Bs ${seguro < 0 ? '-' : ''}${agrupado}.${decimales}`;
 }
 
 export function formatearFecha(valor, incluirHora = false) {

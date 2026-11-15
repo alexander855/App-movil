@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Stack, router, useFocusEffect } from 'expo-router';
 import { api } from '../lib/api';
+import { formatearMoneda } from '../lib/formato';
 import { colors, spacing, radius } from '../theme';
 
 const TARJETAS = [
@@ -91,21 +92,11 @@ export default function Home() {
           <View style={styles.ingresos}>
             <Text style={styles.ingresosLabel}>Ingresos por ventas</Text>
             <Text style={styles.ingresosValor}>
-              ${Number(stats?.ingresos ?? 0).toFixed(2)}
+              {formatearMoneda(stats?.ingresos)}
             </Text>
           </View>
         </>
       )}
-
-      <View style={styles.menuRapido}>
-        <Text style={styles.menuTitulo}>Accesos rápidos</Text>
-        <Pressable
-          onPress={() => router.push('/menu')}
-          style={({ pressed }) => [styles.botonMenu, pressed && styles.presionado]}
-        >
-          <Text style={styles.botonMenuTexto}>Abrir menú de administración</Text>
-        </Pressable>
-      </View>
     </ScrollView>
   );
 }
@@ -126,6 +117,11 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     borderTopWidth: 4,
     padding: spacing.md,
+    shadowColor: '#0B1B3A',
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 2,
   },
   numero: { fontSize: 32, fontWeight: '800' },
   tarjetaTitulo: { color: colors.muted, marginTop: 4, fontWeight: '600' },
@@ -135,21 +131,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: radius.md,
     padding: spacing.lg,
+    shadowColor: colors.primary,
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 5,
   },
   ingresosLabel: { color: '#DCE6FF', fontWeight: '600' },
   ingresosValor: { color: colors.white, fontSize: 28, fontWeight: '800', marginTop: 4 },
-  menuRapido: { marginTop: spacing.xl },
-  menuTitulo: { fontWeight: '700', color: colors.text, marginBottom: spacing.sm },
-  botonMenu: {
-    backgroundColor: colors.card,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.md,
-    padding: spacing.md,
-    alignItems: 'center',
-  },
-  presionado: { opacity: 0.6 },
-  botonMenuTexto: { color: colors.primary, fontWeight: '700' },
+  presionado: { opacity: 0.75, transform: [{ scale: 0.98 }] },
   cargando: { marginTop: spacing.xl },
   errorCaja: { alignItems: 'center', marginTop: spacing.xl },
   error: { color: colors.danger, marginBottom: spacing.md, textAlign: 'center' },

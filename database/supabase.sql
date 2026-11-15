@@ -79,7 +79,13 @@ INSERT INTO usuarios (nombre, email, telefono, rol, tienda_id, activo) VALUES
 ('Luis Pérez',     'luis.perez@modaurbana.com',   '555-2002', 'vendedor',2, TRUE),
 ('María Gómez',    'maria.gomez@hogarfiliz.com',  '555-2003', 'vendedor',3, TRUE),
 ('Carlos Ruiz',    'carlos.ruiz@deportespro.com', '555-2004', 'vendedor',4, FALSE),
-('Sofía Ramírez',  'sofia.ramirez@gmail.com',     '555-2005', 'comprador',NULL, TRUE);
+('Sofía Ramírez',  'sofia.ramirez@gmail.com',     '555-2005', 'comprador',NULL, TRUE),
+('Daniela Quispe', 'daniela.quispe@gmail.com',    '71234567', 'comprador',NULL, TRUE),
+('Rodrigo Mamani', 'rodrigo.mamani@gmail.com',    '72345678', 'comprador',NULL, TRUE),
+('Valeria Choque', 'valeria.choque@gmail.com',    '73456789', 'comprador',NULL, TRUE),
+('Diego Flores',   'diego.flores@gmail.com',      '74567890', 'comprador',NULL, TRUE),
+('Camila Rojas',   'camila.rojas@gmail.com',      '75678901', 'comprador',NULL, TRUE),
+('Andrés Villarroel', 'andres.villarroel@gmail.com', '76789012', 'comprador',NULL, TRUE);
 
 INSERT INTO productos (nombre, descripcion, precio, stock, categoria, tienda_id) VALUES
 ('Laptop 14 pulgadas',    'Laptop con 16GB RAM y SSD 512GB', 12999.00, 12,  'Electrónica', 1),
@@ -97,6 +103,20 @@ INSERT INTO ventas (producto_id, usuario_id, cantidad, total) VALUES
 (4, 4, 1, 1499.00),
 (5, 3, 1, 899.00),
 (7, 2, 4, 1996.00);
+
+-- Ventas de los clientes (compradores), con fecha reciente
+INSERT INTO ventas (producto_id, usuario_id, cantidad, total, fecha) VALUES
+(1, 6, 1, 12999.00, NOW() - INTERVAL '1 day'),
+(4, 7, 1, 1499.00,  NOW() - INTERVAL '2 days'),
+(5, 8, 1, 899.00,   NOW() - INTERVAL '3 days'),
+(3, 8, 2, 398.00,   NOW() - INTERVAL '4 days'),
+(6, 9, 1, 1299.00,  NOW() - INTERVAL '5 days'),
+(2, 9, 2, 699.80,   NOW() - INTERVAL '6 days'),
+(7, 10, 3, 1497.00, NOW() - INTERVAL '7 days'),
+(3, 10, 1, 199.00,  NOW() - INTERVAL '8 days'),
+(1, 11, 1, 12999.00, NOW() - INTERVAL '9 days'),
+(2, 11, 1, 349.90,  NOW() - INTERVAL '10 days'),
+(6, 6, 1, 1299.00,  NOW() - INTERVAL '11 days');
 
 -- ============================================================
 --  Verificación rápida

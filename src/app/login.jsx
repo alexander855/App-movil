@@ -14,11 +14,6 @@ import { Stack } from 'expo-router';
 import { useAuth } from '../lib/auth-context';
 import { colors, spacing, radius } from '../theme';
 
-const CUENTAS_DEMO = [
-  { etiqueta: 'Administrador', email: 'ana.torres@tecnomundo.com' },
-  { etiqueta: 'Vendedor', email: 'luis.perez@modaurbana.com' },
-];
-
 export default function Login() {
   const { iniciarSesion } = useAuth();
   const [email, setEmail] = useState('');
@@ -42,12 +37,6 @@ export default function Login() {
     } finally {
       setEnviando(false);
     }
-  };
-
-  const usarDemo = (cuenta) => {
-    setEmail(cuenta.email);
-    setPassword('123456');
-    setError(null);
   };
 
   return (
@@ -131,21 +120,6 @@ export default function Login() {
             )}
           </Pressable>
         </View>
-
-        <View style={styles.demo}>
-          <Text style={styles.demoTitulo}>Cuentas de prueba (contraseña: 123456)</Text>
-          <View style={styles.demoBotones}>
-            {CUENTAS_DEMO.map((cuenta) => (
-              <Pressable
-                key={cuenta.email}
-                onPress={() => usarDemo(cuenta)}
-                style={({ pressed }) => [styles.demoBoton, pressed && styles.demoPresionado]}
-              >
-                <Text style={styles.demoBotonTexto}>{cuenta.etiqueta}</Text>
-              </Pressable>
-            ))}
-          </View>
-        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -170,6 +144,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: spacing.md,
+    shadowColor: colors.primary,
+    shadowOpacity: 0.35,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 6,
   },
   logoTexto: { color: colors.white, fontSize: 24, fontWeight: '800' },
   titulo: { fontSize: 26, fontWeight: '800', color: colors.text },
@@ -180,6 +159,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     padding: spacing.lg,
+    shadowColor: '#0B1B3A',
+    shadowOpacity: 0.08,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 3,
   },
   etiqueta: { color: colors.text, fontWeight: '700', marginBottom: 6, fontSize: 13 },
   etiquetaSeparada: { marginTop: spacing.md },
@@ -227,20 +211,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 50,
+    shadowColor: colors.primary,
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 4,
   },
   botonPresionado: { opacity: 0.7 },
   botonTexto: { color: colors.white, fontWeight: '800', fontSize: 16 },
-  demo: { marginTop: spacing.xl, alignItems: 'center' },
-  demoTitulo: { color: colors.muted, fontSize: 12, marginBottom: spacing.sm },
-  demoBotones: { flexDirection: 'row', gap: spacing.sm },
-  demoBoton: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: 8,
-    borderRadius: radius.sm,
-    borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.card,
-  },
-  demoPresionado: { opacity: 0.6 },
-  demoBotonTexto: { color: colors.primary, fontWeight: '600', fontSize: 13 },
 });
